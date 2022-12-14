@@ -4,8 +4,13 @@ from rest_framework.views import APIView
 from musicians.models import Musician
 from musicians.serializers import MusicianSerializer
 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class MusicianView(APIView):
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         musicians = Musician.objects.all()
